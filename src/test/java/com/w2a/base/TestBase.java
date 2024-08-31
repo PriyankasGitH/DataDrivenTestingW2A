@@ -9,8 +9,6 @@ import java.time.Duration;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,7 +41,6 @@ public class TestBase {
 	 public static Properties config = new Properties();
 	 public static Properties OR = new Properties();
 	 public static FileInputStream fis;
-	 //public static Logger log = Logger.getLogger("devpinoyLogger");
 	 protected static final Logger logger = LogManager.getLogger(TestBase.class);
 
 
@@ -62,8 +59,7 @@ public class TestBase {
 			}
 			 try {
 				config.load(fis);
-				//log.debug("Config file loaded");
-				//log.debug("Config file loaded");
+				
 				logger.debug("Config file loaded");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -78,8 +74,8 @@ public class TestBase {
 			}
 			 try {
 				OR.load(fis);
-				//log.fine("Or file loaded");
-				//.debug("Or file loaded");
+				
+				//logger.debug("Or file loaded");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -92,16 +88,15 @@ public class TestBase {
 			 }else if(config.getProperty("browser").equals("chrome")) {
 				 
 				 driver = new ChromeDriver();
-				 //log.fine("Chrome launched");
-				// log.debug("Chrome launched");
+				
+				// logger.debug("Chrome launched");
 				 
 			 }else if(config.getProperty("browser").equals("safari")) {
 				 
 				 driver = new SafariDriver();
 			 }
 			 driver.get(config.getProperty("testsiteurl"));
-			// log.fine("Navigated to :" + config.getProperty("testsiteurl"));
-			 //log.debug("Navigated to: " + config.getProperty("testsiteurl"));
+			 //logger.debug("Navigated to: " + config.getProperty("testsiteurl"));
 			 driver.manage().window().maximize();
 			 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Long.parseLong(config.getProperty("implicit.wait"))));
 		 
@@ -118,7 +113,7 @@ public class TestBase {
 		 if(driver!= null) {
 		 driver.quit();
 		 }
-		// log.debug("test execution completed");
+		// logger.debug("test execution completed");
 		
 	 }
 	
