@@ -11,14 +11,19 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+
+import com.w2a.utilities.ExcelReader;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 
@@ -42,9 +47,10 @@ public class TestBase {
 	 public static Properties OR = new Properties();
 	 public static FileInputStream fis;
 	 protected static final Logger logger = LogManager.getLogger(TestBase.class);
+	 public static ExcelReader excel = new ExcelReader(System.getProperty("user.dir") + "/src/test/resources/excel/testdata.xlsx");
 
 
-	 @BeforeMethod
+
 	@BeforeSuite
 	 public void setUp() {
 		 
@@ -106,7 +112,20 @@ public class TestBase {
 		 
 	 }
 	 
-	@AfterMethod
+	 public boolean isElementPresent(By by) {
+		 
+		 try {
+			 driver.findElement(by);
+			 return true;
+			 
+		 }catch(NoSuchElementException e){
+			 
+			 return false;
+			 
+		 }
+	 }
+	 
+
 	@AfterSuite
 	 public void tearDown() {
 		 
